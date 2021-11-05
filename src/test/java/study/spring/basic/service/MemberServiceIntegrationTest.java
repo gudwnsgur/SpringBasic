@@ -14,7 +14,6 @@ import study.spring.basic.repository.MemoryMemberRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
 @SpringBootTest // 스프링 컨테이너와 테스트를 함께 실행
 @Transactional  // TC에 있으면 Rollback 지원
 class MemberServiceIntegrationTest {
