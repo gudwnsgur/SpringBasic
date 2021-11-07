@@ -21,33 +21,43 @@ public class SpringConfig {
 //        this.dataSource = dataSource;
 //    }
 
+
+    // JPA
     // 첫 번째 방법
 //    @PersistenceContext
 //    private EntityManager em;
 
     // 두 번째 방법
-    private EntityManager em;
-    public SpringConfig(EntityManager em) {
-        this.em = em;
+//    private EntityManager em;
+//    public SpringConfig(EntityManager em) {
+//        this.em = em;
+//    }
+
+    private final MemberRepository memberRepository;
+    @Autowired // 생략 가능
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
-    @Bean
-    public MemberRepository memberRepository() {
-        // DB 사용 X
-        // return new MemoryMemberRepository();
 
-        // 순수 JDBC 사용
-        // return new JdbcMemberRepository(dataSource);
 
-        // JDBC Template 사용
-        // return new JdbcTemplateMemberRepository(dataSource);
 
-        // JPA 사용
-        return new JpaMemberRepository(em);
-
-    }
+//    @Bean
+//    public MemberRepository memberRepository() {
+//        // DB 사용 X
+//        // return new MemoryMemberRepository();
+//
+//        // 순수 JDBC 사용
+//        // return new JdbcMemberRepository(dataSource);
+//
+//        // JDBC Template 사용
+//        // return new JdbcTemplateMemberRepository(dataSource);
+//
+//        // JPA 사용
+//        // return new JpaMemberRepository(em);
+//    }
 }
