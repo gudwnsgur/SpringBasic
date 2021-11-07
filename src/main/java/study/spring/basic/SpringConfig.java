@@ -3,12 +3,11 @@ package study.spring.basic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import study.spring.basic.repository.JdbcMemberRepository;
-import study.spring.basic.repository.JdbcTemplateMemberRepository;
-import study.spring.basic.repository.MemberRepository;
-import study.spring.basic.repository.MemoryMemberRepository;
+import study.spring.basic.repository.*;
 import study.spring.basic.service.MemberService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 /*
@@ -17,10 +16,21 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class SpringConfig {
-    private final DataSource dataSource;
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+//    private final DataSource dataSource;
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
+
+    // 첫 번째 방법
+//    @PersistenceContext
+//    private EntityManager em;
+
+    // 두 번째 방법
+    private EntityManager em;
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
+
     @Bean
     public MemberService memberService() {
         return new MemberService(memberRepository());
@@ -34,6 +44,10 @@ public class SpringConfig {
         // return new JdbcMemberRepository(dataSource);
 
         // JDBC Template 사용
-        return new JdbcTemplateMemberRepository(dataSource);
+        // return new JdbcTemplateMemberRepository(dataSource);
+
+        // JPA 사용
+        return new JpaMemberRepository(em);
+
     }
 }

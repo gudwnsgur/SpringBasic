@@ -2,6 +2,7 @@ package study.spring.basic.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import study.spring.basic.domain.Member;
 import study.spring.basic.repository.MemberRepository;
 import study.spring.basic.repository.MemoryMemberRepository;
@@ -9,6 +10,7 @@ import study.spring.basic.repository.MemoryMemberRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional  // JPA 사용시 주의
 public class MemberService {
     private MemberRepository memberRepository;
     public MemberService(MemberRepository memberRepository) {
